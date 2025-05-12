@@ -506,6 +506,10 @@ export default {
 			return fetch(new Request(token_url, request), token_parameter);
 		}
 
+		if (url.pathname.includes('/v1/search') && url.search.includes('library/') && !url.search.match(/library\/(&|$)/)) { 
+			url.search = url.search.replace('library/', ''); 
+		}
+
 		// 修改 /v2/ 请求路径
 		if (hub_host == 'registry-1.docker.io' && /^\/v2\/[^/]+\/[^/]+\/[^/]+$/.test(url.pathname) && !/^\/v2\/library/.test(url.pathname)) {
 			//url.pathname = url.pathname.replace(/\/v2\//, '/v2/library/');
